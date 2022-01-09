@@ -12,10 +12,13 @@ This is a trick-or-treating tool that allows you to use object recognition detec
 
 Engineers are too busy and boring at work, and they need tools and trick-or-treating toys that allow them to sneak around but don't want to be caught. This automates tool and toy keeps manual work away and solves the time that requires eyes and hands.
 
+## 2. Preparation
+
 ## Step1: Gather your component
 
-
+---
 ### Hardware Components
+---
 
 1.	Raspberry Pi 4 *1
 2.	Pi Camera *1
@@ -51,15 +54,20 @@ DC moter for shooting ball
  
 
 ## Step2:Assemble your circuit
-
-
-## Each component code
 ---
-## IOT MOTOR
 
+## 3.Write code!
+
+
+### Each component code
+---
+## A. IOT MOTOR
+---
 ### 1) Server motor
+---
 
 #### a. Server motor installed at the bottom will keep rotating until the camera detect boss comes
+---
 import RPi.GPIO as GPIO
 import time
 
@@ -81,6 +89,7 @@ def server_motor():
     GPIO.cleanup()
 
 #### b. When boss comes, then the top server motor will rotate one circle to let the pingpong ball drop down to the ball lane.
+---
 
 import RPi.GPIO as GPIO
 import time
@@ -104,6 +113,7 @@ def server_motor_buttom(object_name):
     GPIO.cleanup()
 
 ### 2) DC motor & L298N driver
+---
 
 #### L298N Connect the Battery Holder(12V) and raspberry pi to let two DC motor start rotating at the same time.
 
@@ -145,12 +155,15 @@ def dc_motor():
     GPIO.cleanup()
 
 ### 3) Text to Speech 
+---
 -->  pyttsx3 is a text-to-speech conversion library in Python
 
 #### a. Install pyttsx3
+---
 $ pip install pyttsx3
 
 ##### b. Speak out the text which user enter on the webpage we designed (get the ‘voice’ value from Redis)
+---
 
 import pyttsx3
 import redis
@@ -165,21 +178,28 @@ def text_to_speach():
     return engine.runAndWait()
 
 
-## 2. Web development using Flask
- 
+## B. Web development using Flask & Redis for database
+---
  
 ### a. Install Flask
+---
 $ pip install Flask
 
-#### design a text area enable user to enter whatever he/she wants the speaker to shout out when boss comes.
- 
+#### design a text area enable user to enter whatever he/she wants the speaker to shout out when boss comes
+---
+
 
 #### Install Redis to store the text user enter in the text area 
+---
  
 
-## Connect Flask and Redis 
+## Connect Flask and Redis
+---
 
-### Install Redis
+## Install Redis
+
+
+### a. Install Redis
 -->  An simple database that only need key and value, it enables us to temporarily store the words entered by the user on the web page and the 
 
 #### 1) Download Redis 
@@ -196,7 +216,7 @@ import redis
 r = redis.Redis(host='localhost',port = 6379)
 r.set('voice',speak)  
 
-## 3. Object Detection 
+## C. Object Detection 
  
 ### Install TensorFlow Lite and pre-trained object detection model on raspberry pi for us to detect people when they come
 
@@ -223,6 +243,7 @@ $ python -m pip install opencv-contrib-python==4.1.0.25
 $ python -m pip install <paste in .whl link>
 
 #### 6) Download Pre-Trained Model
+ 
 $ Download Starter Model and Labels (we use model trained on trained on the COCO dataset.
 $ mkdir -p ~/Projects/Python/tflite/object_detection/coco_ssd_mobilenet_v1
 $ cd ~/Projects/Python/tflite/object_detection
@@ -230,6 +251,7 @@ $ mv ~/Downloads/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip .
 $ unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d coco_ssd_mobilenet_v1
 
 #### 7) Activate
+ 
 $ cd ~/Projects/Python/tflite
 $ source tflite-env/bin/activate
 $ cd object_detection
@@ -237,11 +259,12 @@ $ python TFLite_detection_webcam.py --modeldir=coco_ssd_mobilenet_v1
 
  
 ### Add code to monitor each moment if object detection detect person score>65
+---
 1) get the highest score’s object in the score output array
 2) if the object score>65 then set ‘label’ key’s value this object name 
 3) else set value ‘nono’
 
-## Reference Link
+## 4. Reference Link
 ---
 https://www.youtube.com/watch?v=0m387MkOyWw
 https://devs.tw/post/448
