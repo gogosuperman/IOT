@@ -1,8 +1,7 @@
 # IoT-Project - Trick or Treat shooter
-===
+
 
 ## 1. Overview/Introduction of the project
-===
 
 ### Introduction
 ---
@@ -14,7 +13,7 @@ This is a trick-or-treating tool that allows you to use object recognition detec
 Engineers are too busy and boring at work, and they need tools and trick-or-treating toys that allow them to sneak around but don't want to be caught. This automates tool and toy keeps manual work away and solves the time that requires eyes and hands.
 
 ## Step1: Gather your component
-===
+
 
 ### Hardware Components
 
@@ -52,7 +51,7 @@ DC moter for shooting ball
  
 
 ## Step2:Assemble your circuit
-===
+
 
 ## Each component code
 ---
